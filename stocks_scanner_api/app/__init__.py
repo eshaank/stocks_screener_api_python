@@ -1,3 +1,0 @@
-"""
-Stocks Scanner API package.
-""" 
