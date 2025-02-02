@@ -1,34 +1,8 @@
-# Stocks Scanner API
+# Stock Scanner CLI
 
-A professional REST API for scanning stocks, retrieving SEC filings, news, and analyzing market data.
+A command-line interface for scanning stocks, retrieving SEC filings, and analyzing market news using Finviz API.
 
-## Features
-
-Current Features:
-- ✅ SEC Filings: Retrieve latest SEC filings for any stock ticker
-- ✅ Stock News: Get recent news articles for any stock ticker
-- 🔜 High volume stock detection
-- 🔜 High percent change detection
-
-## Project Structure
-
-```
-stocks_scanner_api/
-├── app/
-│   ├── api/            # API route handlers
-│   │   ├── news.py     # News endpoints
-│   │   └── sec.py      # SEC filings endpoints
-│   ├── services/       # Business logic
-│   │   ├── news_service.py
-│   │   └── sec_service.py
-│   ├── models.py       # Data models
-│   └── config.py       # Configuration
-├── main.py             # Application entry point
-├── requirements.txt
-└── README.md
-```
-
-## Setup
+## Installation
 
 1. Create a virtual environment:
 ```bash
@@ -46,94 +20,88 @@ pip install -r requirements.txt
 FINVIZ_API_TOKEN=your_token_here
 ```
 
-## Running the API
+## Usage
 
-Start the API server:
+Start the CLI:
 ```bash
-python main.py
+python cli.py
 ```
 
-The API will be available at `http://localhost:8000`
+### Available Commands
 
-## API Documentation
+1. `/news TICKER`
+   - Shows news for a specific stock ticker
+   - Displays two tables:
+     1. Today's news (if available)
+     2. 10 most recent news items
+   - Example: `/news AAPL`
+   ```
+   News Information:
+   • Ticker: AAPL
+   • Current Date (EST): 2024-01-31
+   • Today's News Items: 5
+   • Total News Items: 50
 
-### Root Endpoint
-```
-GET /
-```
-Returns basic API information and available endpoints.
+   📰 Today's News for AAPL (2024-01-31 EST)
+   [Table with today's news]
 
-### SEC Filings
-```
-GET /sec-filings/{ticker}
-```
-Retrieves SEC filings for a specific stock ticker.
+   📰 10 Most Recent News Items for AAPL
+   [Table with recent news]
+   ```
 
-Parameters:
-- `ticker`: Stock symbol (e.g., AAPL, MSFT)
+2. `/sec TICKER`
+   - Shows SEC filings for a specific stock ticker
+   - Displays filings in chronological order (oldest to latest)
+   - Example: `/sec AAPL`
+   ```
+   SEC Filings Information:
+   • Total Filings: 154
+   • Oldest: 11/19/2018
+   • Most Recent: 1/31/2025
 
-Response example:
-```json
-{
-    "ticker": "AAPL",
-    "filings": [
-        {
-            "filing_date": "2024-01-30",
-            "report_date": "2023-12-30",
-            "form": "10-Q",
-            "description": "Quarterly Report",
-            "filing_url": "https://...",
-            "document_url": "https://..."
-        }
-    ]
-}
-```
+   📄 SEC Filings for AAPL (Oldest → Latest)
+   [Table with SEC filings]
+   ```
 
-### Stock News
-```
-GET /news/{ticker}
-```
-Retrieves recent news articles for a specific stock ticker.
+3. `/help`
+   - Shows available commands and usage information
 
-Parameters:
-- `ticker`: Stock symbol (e.g., AAPL, MSFT)
+4. `/exit`
+   - Exits the application
 
-Response example:
-```json
-{
-    "ticker": "AAPL",
-    "news": [
-        {
-            "date": "2024-01-30",
-            "title": "Example News Title",
-            "link": "https://example.com/news",
-            "source": "Example Source",
-            "description": "News description..."
-        }
-    ]
-}
-```
+## Display Features
+
+### News Display
+- Time shown in EST timezone
+- Full date and time format: MM/DD/YYYY HH:MM AM/PM
+- Color-coded information:
+  - 🔵 Time (cyan)
+  - 🟢 Title (green)
+  - 🟡 Source (yellow)
+  - 🔵 URL (blue)
+  - 🟣 Category (magenta)
+
+### SEC Filings Display
+- Chronological order (oldest to latest)
+- Color-coded information:
+  - 🔵 Filing Date (cyan)
+  - 🟡 Form Type (yellow)
+  - 🟢 Description (green)
+  - 🔵 URL (blue)
 
 ## Error Handling
 
-The API uses standard HTTP status codes:
-- `200`: Successful request
-- `404`: Resource not found
-- `500`: Server error (includes detailed error message)
-
-Common error scenarios:
+The CLI provides clear error messages for common issues:
+- Invalid ticker symbols
+- Network connectivity issues
 - Missing API token
-- Invalid stock ticker
-- Network issues with external data providers
+- Data parsing errors
 
-## Development
+## Tips
 
-This API is structured for easy expansion and future frontend integration. New features will be added as separate endpoints following REST principles.
-
-### Adding New Features
-1. Create new models in `app/models.py`
-2. Add business logic in `app/services/`
-3. Create route handlers in `app/api/`
+1. Use uppercase or lowercase for ticker symbols (automatically converted to uppercase)
+2. Press Ctrl+C at any time to exit the application
+3. Use the up arrow key to recall previous commands
 
 
 ## Author
