@@ -135,17 +135,6 @@ This API is structured for easy expansion and future frontend integration. New f
 2. Add business logic in `app/services/`
 3. Create route handlers in `app/api/`
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## License
-
-MIT License - See LICENSE file for details
 
 ## Author
 
